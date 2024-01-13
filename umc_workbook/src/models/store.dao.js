@@ -3,7 +3,7 @@ import { pool } from "../../config/db.connect.js";
 import { BaseError } from "../../config/error.js";
 import { status } from "../../config/response.status.js";
 import { getStoreId, insertStoreSql, getMissionID, insertMissionSql } from "./store.sql.js";
-
+import { getMissionByMissionId, getMissionByMissionIdAtFirst } from "../models/store.sql.js";
 
 // store data : 데이터베이스에 새로운 가게 정보를 추가
 export const addStore = async(data) => {
@@ -74,4 +74,20 @@ export const getMission = async(missionID) => {
         throw new BaseError(status.PARAMETER_IS_WRONG);
     }
 
+}
+
+// 특정 가게 미션 목록 조회
+export const getPreviewMission = async(cursorId, size, storeId) => {
+    const conn = await pool.getConnection();
+    if (cursorId == "undefined" || typeof cursorId == "undefined" || cursorId == null) {
+        // const [missions] : 배열에서 첫번째 원소를 추출하여 missions라는 변수에 할당.
+        const [missions] = await pool.query(getMissionByMissionIdAtFirst, [parseInt(storeId), parseInt(size)]);
+        conn.release();
+        return missions;
+    }
+    else {
+        const [missions] = await pool.query(getMissionByMissionId, [parseInt(storeId), parseInt(size)]);
+        conn.release();
+        return missions;
+    }
 }

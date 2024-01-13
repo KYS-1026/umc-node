@@ -8,3 +8,14 @@ export const insertStoreSql = "SELECT * FROM store WHERE id = ?;";
 export const getMissionID = "INSERT INTO mission (store_id, reward, deadline, content) vALUES (?, ?, ?, ?);";
 
 export const insertMissionSql = "SELECT * ROM mission WHERE id = ?;";
+
+// 특정 가게 미션 목록 조회 
+export const getMissionByMissionId = "SELECT st.name, m.id, m.reward, m.deadline, m.mission_spec, m.created_at"
+ "FROM mission m JOIN store st on m.store_id = st.id"
+ "WHERE m.store_id = ? AND m.id < ? "
+ "ORDER BY m.id DESC LIMIT ?;"
+
+export const getMissionByMissionIdAtFirst = "SELECT st.name, m.id, m.reward, m.deadline, m.mission_spec, m.created_at "
+    "FROM mission m JOIN store st on m.store_id = st.id "
+    "WHERE m.store_id = ? "
+    "ORDER BY m.id DESC LIMIT ? ;"

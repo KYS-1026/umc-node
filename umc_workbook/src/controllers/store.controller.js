@@ -5,6 +5,8 @@ import { status } from '../../config/response.status.js';
 import { joinStore } from '../services/store.service.js';
 import { joinMission } from '../services/store.service.js';
 
+import { getMission } from '../services/store.provider.js';
+
 
 export const storeAdd = async(req, res, next) => { // 이 tempTest를 route로 넘겨줌 
     const store_add = req.body;
@@ -22,3 +24,9 @@ export const missionAdd = async(req, res, next) => {
     
     return res.send(response(status.SUCCESS, await joinMission(mission_add)));
 };
+
+// 특정 가게 미션 목록 조회 함수 
+export const missionPreview = async(req, res, next) => {
+
+    return res.send(response(status.SUCCESS, await getMission(req.params.storeId, req.query)));
+}

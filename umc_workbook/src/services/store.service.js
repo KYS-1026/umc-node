@@ -2,7 +2,7 @@
 
 // DTO를 가져옴 
 import { addStoreResponseDTO, addMissionResponseDTO } from "../dtos/store.response.dto.js";
-import { addStore, getStore, addMission, getMission } from "../dtos/store.dao.js";
+import { addStore, getStore, addMission, getMission } from "../models/store.dao.js";
 
 // 함수 정의
 export const joinStore = async (body) => {

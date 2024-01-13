@@ -1,16 +1,45 @@
 paths:
-  /store/add:
-    post:
+  /store/missions/{storeId}:
+    get:
       tags:
-      - store
-      summary: 가게추가
-      requestBody:
-        requeired: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                
-  /store/mission:
-    
+        - Store
+      summary: Get missions for a specific store
+      parameters:
+        - in: path
+          name: storeId
+          required: true
+          description: ID of the store to retrieve missions for
+          schema:
+            type: integer
+        - in: query
+          name: missionId
+          required: false
+          description: ID of the last mission for cursor-based pagination
+          schema:
+            type: integer
+        - in: query
+          name: size
+          required: false
+          description: Number of missions to retrieve
+          schema:
+            type: integer
+            default: 3
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionListResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
