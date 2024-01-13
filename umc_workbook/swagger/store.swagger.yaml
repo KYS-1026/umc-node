@@ -1,0 +1,15 @@
+paths:
+  /store/add:
+    post:
+      tags:
+      - store
+      summary: 가게추가
+      requestBody:
+        requeired: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                
+  /store/mission:
